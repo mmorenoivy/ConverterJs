@@ -63,16 +63,16 @@
 						name = "tempinput"
 						type="number" 
 						class="form-control-lg" 
-						placeholder="">
+						placeholder="" onblur="inputblur()">
 					</div>
 				</form>
 				<label class="custom-control custom-radio">
-					<input id="cel" name="radio" type="radio" class="custom-control-input" onclick="checkCel()">
+					<input id="cel" name="radio" type="radio" class="custom-control-input" onclick="calculateTemp('C')">
 						<span class="custom-control-indicator"></span>
 							<span class="custom-control-description">Celsius</span>
 				</label>
 				<label class="custom-control custom-radio">
-					<input id="fah" name="radio" type="radio" class="custom-control-input" onclick="checkFah()">
+					<input id="fah" name="radio" type="radio" class="custom-control-input" onclick="calculateTemp('F')">
 						<span class="custom-control-indicator"></span>
 							<span class="custom-control-description">Fahrenheit</span>
 				</label>
@@ -97,33 +97,49 @@
 			document.getElementById('ozOutput').innerHTML = lbs*16;
 			
 		});
-			
-		function checkCel()
-		{	
-			document.getElementById('out').innerHTML = "Fahrenheit to Celsius: ";
-			document.getElementsByName('tempinput')[0].placeholder = "Enter Fahrenheit";
-			document.getElementById('tempinput').addEventListener
-				('input', function(e){
-					let t = e.target.value;
-					document.getElementById('tempOutput').innerHTML = t - 32 * 0.56
-				});					
 	
+		function calculateTemp(val)
+		{	
+		
+		var  OutinnerHTMLVal, placeHolderVal, tempOutputinnerHTMLVal;		
+		
+		
+			if(val==='C')
+			{
+			OutinnerHTMLVal = "Fahrenheit to Celsius: ";
+			placeHolderVal = "Enter Fahrenheit";
+			var t = document.getElementById('tempinput').value;
+			tempOutputinnerHTMLVal = (t - 32) * 0.56
+			
+			}
+			else if(val==='F')
+			{
+			OutinnerHTMLVal = "Celsius to Fahrenheit: ";
+			placeHolderVal = "Enter Celsius";			
+			var t = document.getElementById('tempinput').value;
+			tempOutputinnerHTMLVal = (t*1.8) + 32;					
+			}			
+			
+			document.getElementById('out').innerHTML = OutinnerHTMLVal;
+			document.getElementsByName('tempinput')[0].placeholder = placeHolderVal;
+			document.getElementById('tempOutput').innerHTML = tempOutputinnerHTMLVal;
 		}
-		function checkFah()
+		
+		function inputblur()
 		{
+			if(document.getElementById('tempinput').value!==null)
+			{
+				if(document.getElementById('cel').checked)
+				{
+					calculateTemp('C');
+				}
+				else
+				{
+					calculateTemp('F');
+				}
+			}
+		}
 			
-			
-			document.getElementById('out').innerHTML = "Celsius to Fahrenheit: ";
-			document.getElementsByName('tempinput')[0].placeholder = "Enter Celsius";
-			document.getElementById('tempinput').addEventListener
-				('input', function(e){
-					let t = e.target.value;
-					document.getElementById('tempOutput').innerHTML = t*1.8+32;		
-				});					
-		}		
-				
-		
-		
 	</script>
 </body>
 </html>
