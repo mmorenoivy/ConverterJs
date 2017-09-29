@@ -60,20 +60,31 @@
 				<form>
 					<div class="form-group">
 						<input id="tempinput" 
+						name = "tempinput"
 						type="number" 
 						class="form-control-lg" 
-						placeholder="Enter Temperature in Celsius...">
-						
+						placeholder="">
 					</div>
 				</form>
-				<div id="output">
+				<label class="custom-control custom-radio">
+					<input id="cel" name="radio" type="radio" class="custom-control-input" onclick="checkCel()">
+						<span class="custom-control-indicator"></span>
+							<span class="custom-control-description">Celsius</span>
+				</label>
+				<label class="custom-control custom-radio">
+					<input id="fah" name="radio" type="radio" class="custom-control-input" onclick="checkFah()">
+						<span class="custom-control-indicator"></span>
+							<span class="custom-control-description">Fahrenheit</span>
+				</label>
+				<div id="output1">
 					<div class="card card-primary mb-2">
 						<div class="card-block">
-							<h4>Fahrenheit: </h4>
-							<div id="fOutput"></div>
+							<h4 id="out"></h4>
+							<div id="tempOutput"></div>
 						</div>
 					</div>
 				</div>
+			
 			</div>
 		</div>
 	</div>
@@ -86,11 +97,33 @@
 			document.getElementById('ozOutput').innerHTML = lbs*16;
 			
 		});
-		document.getElementById('tempinput').addEventListener
-		('input', function(e){
-			let t = e.target.value;
-			document.getElementById('fOutput').innerHTML = t*1.8+32;			
-		});
+			
+		function checkCel()
+		{
+		
+			document.getElementById('out').innerHTML = "Fahrenheit to Celsius: ";
+			document.getElementsByName('tempinput')[0].placeholder = "Enter Fahrenheit";
+			document.getElementById('tempinput').addEventListener
+				('input', function(e){
+					let t = e.target.value;
+					document.getElementById('tempOutput').innerHTML = t - 32 * 0.56
+				});					
+	
+		}
+		function checkFah()
+		{
+			
+			
+			document.getElementById('out').innerHTML = "Celsius to Fahrenheit: ";
+			document.getElementsByName('tempinput')[0].placeholder = "Enter Celsius";
+			document.getElementById('tempinput').addEventListener
+				('input', function(e){
+					let t = e.target.value;
+					document.getElementById('tempOutput').innerHTML = t*1.8+32;		
+				});					
+		}		
+				
+		
 		
 	</script>
 </body>
